@@ -3,12 +3,15 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from "./components/Persons"
 import dbService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
   
   const handleNameChange = (event) => setNewName(event.target.value)
   const handleNumberChange = (event) => setNewNumber(event.target.value)
@@ -25,25 +28,32 @@ const App = () => {
     const exists = persons.find(person => person.name === newName)
 
     if (exists) {
-      if (!window.confirm(`${exists.name} has been already added to the phonebook, replace the old number with a new one?`)) { 
-        return
-      }
-
+      if (!window.confirm(`${exists.name} has been already added to the phonebook, replace the old number with a new one?`)) return
       const changedPerson = { ...exists, number: newNumber }
+      
       dbService
         .update(exists.id, changedPerson)
         .then(returnedPerson => {
-          console.log(`Changed ${exists.name}'s number from: ${exists.number} to ${returnedPerson.number}`)
+          setMessage(`Changed ${exists.name}'s number from ${exists.number} to ${returnedPerson.number}`)
+          setTimeout(() => setMessage(''), 5000)
+
           setPersons(persons.map(person => 
             person.id === exists.id ? returnedPerson : person
           ))
         })
+        .catch(error => {
+          setError(`${exists.name} was already deleted from server!`)
+          setTimeout(() => setError(''), 5000)
 
+          setPersons(persons.filter(person => person.id !== exists.id))
+        })
     } else {
       dbService
         .create({ name: newName, number: newNumber })
         .then(returnedPerson => {
-          console.log(`Added successfully: ${returnedPerson.name}`)
+          setMessage(`Added : ${returnedPerson.name}`)
+          setTimeout(() => setMessage(''), 5000)
+
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
@@ -58,11 +68,16 @@ const App = () => {
     dbService
       .deletePerson(id)
       .then(returnedPerson => {
-        console.log(`Deleted successfully: ${returnedPerson.name}`)
+        setMessage(`Deleted : ${returnedPerson.name}`)
+        setTimeout(() => setMessage(''), 5000)
+
         setPersons(persons.filter(person => person.id !== id))
       })
       .catch(error => {
-        alert(`${person.name} was already removed from the server`)
+        console.log("Was already deleted!")
+        setError(`${person.name} was already deleted from server!`)
+        setTimeout(() => setError(''), 5000)
+
         setPersons(persons.filter(person => person.id !== id))
       })
   }
@@ -73,6 +88,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} type="success" />
+      <Notification message={error} type="error" />
       <Filter 
         value={newFilter} 
         onChange={handleFilterChange}
