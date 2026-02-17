@@ -26,10 +26,7 @@ const App = () => {
 
   return (
     <div>
-      <Filter 
-        value={newFilter}
-        onChange={handleFilterChange}
-      />
+      <Filter value={newFilter} onChange={handleFilterChange} />
       <Countries names={namesToShow} countries={countries} /> 
     </div>
   )
