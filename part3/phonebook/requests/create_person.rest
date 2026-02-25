@@ -1,0 +1,7 @@
+POST https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/persons
+Content-Type: application/json
+
+{
+  "name": "YoungJu Choi",
+  "number": "010-5753-1579"
+}

@@ -1,0 +1,3 @@
+// DELETE https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/1
+
+GET https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/

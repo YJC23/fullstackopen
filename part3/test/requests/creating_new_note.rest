@@ -1,0 +1,13 @@
+POST https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/
+Content-Type: application/json
+
+{
+  "content" : "VS code rest client is a pretty handy tool!",
+  "important" : true
+}
+
+###
+GET https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes
+
+###
+DELETE https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/1
