@@ -25,6 +25,7 @@ let  persons = [
   }
 ]
 
+app.use(express.static('dist'))
 // 1. Define your custom token
 morgan.token('body', (req) => JSON.stringify(req.body));
 
@@ -79,13 +80,14 @@ app.get('/info', (request, response) => {
 
 app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
+  const person = persons.find(person => person.id === id)
   persons = persons.filter(person => person.id !== id)
 
-  response.status(204).end()
+  response.json(person)
 })
 
 const generateId = () => {
-  return Math.floor(Math.random() * 10000)
+  return `${Math.floor(Math.random() * 10000)}`
 }
 
 app.post('/api/persons', (request, response) => {
@@ -116,7 +118,7 @@ app.post('/api/persons', (request, response) => {
   response.json(person)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
