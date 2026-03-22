@@ -13,36 +13,19 @@ mongoose.set('strictQuery',false)
 mongoose.connect(url, { family: 4 })
 
 const personSchema = new mongoose.Schema({
-  id: String,
   name: String,
   number: String
 })
 const Person = mongoose.model('Person', personSchema)
 
-if (process.argv.length == 3) {
-  console.log('phonebook:')
-  Person
-    .find({})
-    .then(result => {
-      result.forEach(person => {
-        console.log(`${person.name}: ${person.number}`)
-      })
-      mongoose.connection.close()
-    })
-} else if (process.argv.length == 5) {
-  const person = new Person({
-    name: process.argv[3],
-    number: process.argv[4]
-  })
+const id = "69bf777e2c8cbbe5e18bf00f"
+Person.findByIdAndDelete(id).then(person => {
+  console.log("deleted person")
+})
 
-  person.save().then(result => {
-    console.log(`added ${result.name} number ${result.number} to phonebook`)
-    mongoose.connection.close()
+Person.find({}).then(result => {
+  result.forEach(note => {
+    console.log(note)
   })
-  
-} else {
-  console.log('error')
-  process.exit(1)
-}
-
-s
+  mongoose.connection.close()
+})

@@ -1,3 +1,19 @@
-// DELETE https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/1
+@hostname = https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/
+@password = abcd
 
-GET https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/
+### 1. Login to get a token
+# @name login
+POST {{hostname}}/api/login
+Content-Type: application/json
+
+{
+    "username": "yjcsean",
+    "password": "{{password}}"
+}
+
+### 2. Capture the token from the response above
+@authToken = {{login.response.body.token}}
+
+### 3. Delete the note using the token
+DELETE {{hostname}}/api/notes/65f123abc456def789012345
+Authorization: Bearer {{authToken}}

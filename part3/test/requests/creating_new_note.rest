@@ -10,4 +10,4 @@ Content-Type: application/json
 GET https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes
 
 ###
-DELETE https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/1
+DELETE https://sturdy-tribble-5545vjqx5xp27p9g-3001.app.github.dev/api/notes/69b6065893601ca1733a560d

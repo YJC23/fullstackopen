@@ -21,16 +21,38 @@ const noteSchema = new mongoose.Schema({
 
 const Note = mongoose.model('Note', noteSchema)
 
-const note = new Note({
-  content: 'HTML is easy',
-  important: true,
-})
+// CREATE new note 
+// const note = new Note({
+//   content: 'HTML is easy',
+//   important: true,
+// })
 
 // note.save().then(result => {
 //   console.log('note saved!')
 //   mongoose.connection.close()
 // })
 
+// DELETE note 
+// Note.findByIdAndDelete("69b61b75d12f065f809de0fa")
+//   .then(result => {
+//     response.status(204).end()
+//   })
+
+// UPDATE note 
+// Note.findById("69a2cf962b5655905d23932c")
+//   .then(note => {
+//     if (!note) {
+//       return response.status(404).end()
+//     }
+
+//     note.content = "This is the changed content"
+//     note.important = true 
+
+//     return note.save().then((updatedNote) => {
+//       response.json(updatedNote)
+//     })
+//   })
+  
 Note.find({}).then(result => {
   result.forEach(note => {
     console.log(note)
