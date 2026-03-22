@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', false)
 
-const password = process.argv[2]
-const template = process.env.MONGODB_URI
-const url = template.replace('PASSWORD_HERE', password);
+// const password = process.argv[2]
+const url = process.env.MONGODB_URI
+// const url = template.replace('PASSWORD_HERE', password);
 
 console.log('connecting to', url)
 mongoose.connect(url, { family: 4 })
