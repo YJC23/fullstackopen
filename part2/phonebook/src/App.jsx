@@ -44,7 +44,6 @@ const App = () => {
         .catch(error => {
           setError(`${exists.name} was already deleted from server!`)
           setTimeout(() => setError(''), 5000)
-
           setPersons(persons.filter(person => person.id !== exists.id))
         })
     } else {
@@ -57,6 +56,10 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+        })
+        .catch(error => {
+          const errorMessage = error.response.data.error 
+          setError(errorMessage)
         })
     }
   }
