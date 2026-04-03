@@ -4,11 +4,9 @@ const morgan = require('morgan')
 const app = express()
 const Person = require('./models/person')
 
-let  persons = []
-
 app.use(express.static('dist'))
 // 1. Define your custom token
-morgan.token('body', (req) => JSON.stringify(req.body));
+morgan.token('body', (req) => JSON.stringify(req.body))
 
 // 2. Use a function to define the format dynamically
 app.use(morgan((tokens, req, res) => {
@@ -19,15 +17,15 @@ app.use(morgan((tokens, req, res) => {
     tokens.status(req, res),
     tokens.res(req, res, 'content-length'), '-',
     tokens['response-time'](req, res), 'ms'
-  ];
+  ]
 
   // 3. Only append the body if the method is POST
   if (req.method === 'POST') {
-    log.push(tokens.body(req, res));
+    log.push(tokens.body(req, res))
   }
 
-  return log.join(' ');
-}));
+  return log.join(' ')
+}))
 
 app.use(express.json())
 
@@ -64,7 +62,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(person => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -82,10 +80,11 @@ app.post('/api/persons', (request, response, next) => {
     name: body.name,
     number: body.number,
   })
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
-  })
-  .catch(error => next(error))
+  person
+    .save().then(savedPerson => {
+      response.json(savedPerson)
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {

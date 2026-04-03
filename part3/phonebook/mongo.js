@@ -18,9 +18,9 @@ const personSchema = new mongoose.Schema({
 })
 const Person = mongoose.model('Person', personSchema)
 
-const id = "69bf777e2c8cbbe5e18bf00f"
-Person.findByIdAndDelete(id).then(person => {
-  console.log("deleted person")
+const id = '69bf777e2c8cbbe5e18bf00f'
+Person.findByIdAndDelete(id).then(() => {
+  console.log('deleted person')
 })
 
 Person.find({}).then(result => {
