@@ -1,0 +1,9 @@
+POST https://sturdy-tribble-5545vjqx5xp27p9g-3003.app.github.dev/api/blogs
+Content-Type: application/json
+
+{
+  "title": "The Knicks Look Stuck. Do They Have a KAT Problem?",
+  "author": "Danny Chau",
+  "url": "https://www.theringer.com/2026/04/01/nba/new-york-knicks-nba-playoffs-2026-karl-anthony-towns-mike-brown",
+  "likes": 100
+}
